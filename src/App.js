@@ -8,8 +8,16 @@ import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import SearchFlights from "./components/SearchFlights";
 import FlightResults from "./components/FlightResults";
+import FlightDetails from "./components/FlightDetails";
+import BookingDetails from "./components/BookingDetails";
+import SeatSelection from "./components/SeatSelection";
+import PassengerDetails from "./components/PassengerDetails";
+import Payment from "./components/Payment";
+import BookingConfirmation from "./components/BookingConfirmation";
+import UserProfile from "./components/UserProfile";
+import MyBookings from "./components/MyBookings";
+import AdminPanel from "./components/AdminPanel";
 import BookingPage from "./components/BookingPage";
-import Profile from "./components/Profile";
 import "./App.css";
 
 function App() {
@@ -35,9 +43,12 @@ function App() {
 
         <main className="main-content">
           <Routes>
+            {/* Public Routes */}
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Home />} />
             <Route path="/register" element={<Register />} />
+
+            {/* Protected Routes */}
             <Route
               path="/dashboard"
               element={localStorage.getItem("user") ? <Dashboard /> : <Navigate to="/login" />}
@@ -48,16 +59,51 @@ function App() {
             />
             <Route
               path="/results"
-              element={<FlightResults onSelectFlight={setSelectedFlight} />}
+              element={localStorage.getItem("user") ? <FlightResults onSelectFlight={setSelectedFlight} /> : <Navigate to="/login" />}
             />
             <Route
-              path="/booking"
-              element={selectedFlight ? <BookingPage flight={selectedFlight} /> : <Navigate to="/search" />}
+              path="/flight-details"
+              element={localStorage.getItem("user") ? <FlightDetails /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/booking-details"
+              element={localStorage.getItem("user") ? <BookingDetails /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/seat-selection"
+              element={localStorage.getItem("user") ? <SeatSelection /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/passenger-details"
+              element={localStorage.getItem("user") ? <PassengerDetails /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/payment"
+              element={localStorage.getItem("user") ? <Payment /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/booking-confirmation"
+              element={localStorage.getItem("user") ? <BookingConfirmation /> : <Navigate to="/login" />}
             />
             <Route
               path="/profile"
-              element={localStorage.getItem("user") ? <Profile /> : <Navigate to="/login" />}
+              element={localStorage.getItem("user") ? <UserProfile /> : <Navigate to="/login" />}
             />
+            <Route
+              path="/my-bookings"
+              element={localStorage.getItem("user") ? <MyBookings /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/admin"
+              element={localStorage.getItem("user") ? <AdminPanel /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/booking"
+              element={localStorage.getItem("user") ? (selectedFlight ? <BookingPage flight={selectedFlight} /> : <Navigate to="/search" />) : <Navigate to="/login" />}
+            />
+
+            {/* Fallback */}
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>
 

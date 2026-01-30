@@ -1,0 +1,71 @@
+.clouds-background {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(135deg, #87CEEB 0%, #E0F6FF 100%);
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.cloud {
+  position: absolute;
+  width: 120px;
+  height: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: driftAcross 20s linear infinite;
+}
+
+.cloud-1 {
+  animation: driftAcross 25s linear infinite;
+  opacity: 0.9;
+}
+
+.cloud-2 {
+  animation: driftAcross 30s linear infinite 5s;
+  opacity: 0.7;
+  top: 30%;
+}
+
+.cloud-3 {
+  animation: driftAcross 35s linear infinite 10s;
+  opacity: 0.5;
+  top: 70%;
+}
+
+.cloud-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+}
+
+@keyframes driftAcross {
+  0% {
+    left: -150px;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Parallax effect on scroll */
+@media (prefers-reduced-motion: no-preference) {
+  .clouds-background {
+    will-change: transform;
+  }
+
+  .cloud {
+    will-change: transform;
+  }
+}
+
+@media (max-width: 768px) {
+  .clouds-background {
+    height: 100px;
+  }
+
+  .cloud {
+    width: 80px;
+    height: 35px;
+  }
+}

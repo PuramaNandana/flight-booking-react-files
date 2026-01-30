@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Star, Clock, Plane } from 'lucide-react';
+import { Star, Plane } from 'lucide-react';
 import flightsData from '../data/flights.json';
 import './FlightResults.css';
 
 function FlightResults({ onSelectFlight }) {
-  const [flights, setFlights] = useState([]);
-  const [filteredFlights, setFilteredFlights] = useState([]);
+  const [filteredFlights, setFilteredFlights] = useState(flightsData.flights);
   const [sortBy, setSortBy] = useState('price');
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
-    setFlights(flightsData.flights);
     setFilteredFlights(flightsData.flights);
   }, []);
 
@@ -33,8 +30,7 @@ function FlightResults({ onSelectFlight }) {
   };
 
   const handleSelectFlight = (flight) => {
-    onSelectFlight(flight);
-    navigate('/booking');
+    navigate('/flight-details', { state: { flight } });
   };
 
   const containerVariants = {
