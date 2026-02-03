@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CheckCircle, Download, Share2, Home, Users, Plane } from 'lucide-react';
+import { CheckCircle, Download, Share2, Home, Users, Plane, Clock } from 'lucide-react';
 import './BookingConfirmation.css';
 
 function BookingConfirmation() {

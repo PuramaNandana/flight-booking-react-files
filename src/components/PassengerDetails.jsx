@@ -24,18 +24,50 @@ function PassengerDetails() {
 
   const handleInputChange = (index, field, value) => {
     const newPassengers = [...passengers];
-    newPassengers[index][field] = value;
+    
+    // Validate Indian phone number format
+    if (field === 'phone') {
+      // Remove non-digit characters for validation
+      const cleanValue = value.replace(/\D/g, '');
+      
+      // Only allow up to 10 digits
+      if (cleanValue.length <= 10) {
+        // Format as we go: just store digits
+        newPassengers[index][field] = value;
+      } else {
+        // Don't update if more than 10 digits
+        return;
+      }
+    } else {
+      newPassengers[index][field] = value;
+    }
+    
     setPassengers(newPassengers);
+  };
+
+  // Validate Indian phone number (10 digits, starting with +91)
+  const validateIndianPhoneNumber = (number) => {
+    const cleanNumber = number.replace(/\D/g, '');
+    return cleanNumber.length === 10;
   };
 
   const handleContinue = () => {
     const allFilled = passengers.every(p => 
       p.firstName && p.lastName && p.email && p.phone && p.passport
     );
+    
     if (!allFilled) {
       alert('Please fill in all passenger details');
       return;
     }
+
+    // Validate Indian phone numbers
+    const allValidPhones = passengers.every(p => validateIndianPhoneNumber(p.phone));
+    if (!allValidPhones) {
+      alert('Please enter a valid 10-digit Indian phone number for all passengers');
+      return;
+    }
+
     navigate('/payment', { state: { flight, selectedSeats, passengers } });
   };
 
@@ -141,9 +173,11 @@ function PassengerDetails() {
                   type="tel"
                   value={passenger.phone}
                   onChange={(e) => handleInputChange(index, 'phone', e.target.value)}
-                  placeholder="+1 234 567 8900"
+                  placeholder="9876543210"
+                  maxLength="10"
                   whileFocus={{ borderColor: '#3b82f6', boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)' }}
                 />
+                <p className="form-hint">10-digit Indian phone number (will be formatted as +91XXXXXXXXXX)</p>
               </div>
 
               <div className="form-group">

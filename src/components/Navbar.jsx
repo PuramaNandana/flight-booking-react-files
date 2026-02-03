@@ -78,6 +78,22 @@ function Navbar({ isDarkMode, setIsDarkMode }) {
                 </Link>
               </motion.div>
               <motion.div variants={itemVariants}>
+                <Link
+                  to="/my-bookings"
+                  className={`nav-link ${isActive('/my-bookings') ? 'active' : ''}`}
+                >
+                  My Bookings
+                </Link>
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <Link
+                  to="/upcoming-trips"
+                  className={`nav-link ${isActive('/upcoming-trips') ? 'active' : ''}`}
+                >
+                  Upcoming Trips
+                </Link>
+              </motion.div>
+              <motion.div variants={itemVariants}>
                 <button className="nav-link logout-btn" onClick={handleLogout}>
                   <LogOut size={18} />
                   Logout
@@ -170,6 +186,20 @@ function Navbar({ isDarkMode, setIsDarkMode }) {
                 onClick={() => setIsOpen(false)}
               >
                 Profile
+              </Link>
+              <Link
+                to="/my-bookings"
+                className="mobile-nav-link"
+                onClick={() => setIsOpen(false)}
+              >
+                My Bookings
+              </Link>
+              <Link
+                to="/upcoming-trips"
+                className="mobile-nav-link"
+                onClick={() => setIsOpen(false)}
+              >
+                Upcoming Trips
               </Link>
               <button
                 className="mobile-nav-link logout-btn"

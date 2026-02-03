@@ -36,8 +36,9 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  background-attachment: fixed;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
   color: var(--text);
   transition: background 0.3s ease, color 0.3s ease;
   min-height: 100vh;
@@ -48,6 +49,39 @@ body {
   display: flex;
   flex-direction: column;
   background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated Background Layer */
+.app::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Clouds background layer */
+.app::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  animation: cloudsDrift 30s ease-in-out infinite;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .main-content {
@@ -123,8 +157,14 @@ body {
   0% {
     background-position: 0% 50%;
   }
-  50% {
+  25% {
     background-position: 100% 50%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 50%;
   }
   100% {
     background-position: 0% 50%;
@@ -148,6 +188,17 @@ body {
   }
   50% {
     transform: translateX(50px);
+  }
+}
+
+@keyframes cloudsDrift {
+  0%, 100% {
+    background-position: 0 0;
+    opacity: 0.3;
+  }
+  50% {
+    background-position: 50px 0;
+    opacity: 0.5;
   }
 }
 

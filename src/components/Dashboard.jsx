@@ -1,10 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { Plane, MapPin, Calendar, Users } from 'lucide-react';
 import './Dashboard.css';
 
 function Dashboard() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const navigate = useNavigate();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -43,14 +45,14 @@ function Dashboard() {
           <MapPin size={48} className="card-icon" />
           <h3>My Bookings</h3>
           <p>View your confirmed bookings</p>
-          <button className="card-btn" disabled>No Bookings Yet</button>
+          <button className="card-btn" onClick={() => navigate('/my-bookings')}>View Bookings</button>
         </motion.div>
 
         <motion.div className="dashboard-card" variants={cardVariants}>
           <Calendar size={48} className="card-icon" />
           <h3>Upcoming Trips</h3>
           <p>Your future travels at a glance</p>
-          <button className="card-btn" disabled>No Trips</button>
+          <button className="card-btn" onClick={() => navigate('/upcoming-trips')}>View Trips</button>
         </motion.div>
 
         <motion.div className="dashboard-card" variants={cardVariants}>
