@@ -69,7 +69,7 @@ npm install
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open https://flight-book-3e2b.vercel.app/ in your browser.
 
 ### Test Credentials
 
